@@ -1,0 +1,20 @@
+[
+    {
+        "title": "Inception",
+        "genre": "action",
+        "link": "https://example.com/inception-download",
+        "image": "https://via.placeholder.com/50x75"
+    },
+    {
+        "title": "The Hangover",
+        "genre": "comedy",
+        "link": "https://example.com/the-hangover-download",
+        "image": "https://via.placeholder.com/50x75"
+    },
+    {
+        "title": "Conjuring",
+        "genre": "horror",
+        "link": "https://example.com/conjuring-download",
+        "image": "https://via.placeholder.com/50x75"
+    }
+]
