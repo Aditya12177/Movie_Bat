@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,65 +10,67 @@
             font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: #ecf0f1;
-            transition: background-color 0.5s, color 0.5s;
-        }
-
-        header {
-            padding: 20px;
-            text-align: center;
-            background-color: rgba(52, 73, 94, 0.9);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        header input[type="text"] {
-            width: 50%;
-            padding: 10px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s ease-in-out;
-        }
-
-        header select {
-            margin-left: 10px;
-            padding: 10px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            outline: none;
-            background-color: #1abc9c;
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
             color: #fff;
+            display: flex;
         }
 
-        .container {
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Initially hidden */
+            width: 250px;
+            height: 100%;
+            background-color: #2C3E50;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar a {
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #FF69B4;
+            transform: translateX(10px);
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 0;
+            width: 100%;
             padding: 20px;
+            transition: margin-left 0.3s ease;
         }
 
         .movie-list {
             list-style: none;
             padding: 0;
-            display: block;
         }
 
         .movie-list li {
             display: flex;
             align-items: center;
-            padding: 10px 20px;
+            padding: 15px 20px;
             margin: 10px 0;
-            background-color: #3b5998;
+            background-color: #2980B9;
             border-radius: 10px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .movie-list li:hover {
-            background-color: #1abc9c;
+            background-color: #FF69B4;
             transform: scale(1.05);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
         }
 
         .movie-list li img {
@@ -79,70 +80,227 @@
             margin-right: 15px;
         }
 
-        .toggle-dark-mode {
-            margin-top: 10px;
-            cursor: pointer;
-            font-size: 14px;
-            background: #ecf0f1;
-            color: #34495e;
+        .movie-list li a {
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .movie-list li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            max-width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2C3E50;
+        }
+
+        .modal-content button {
+            background-color: #FF69B4;
+            color: #fff;
+            padding: 10px 20px;
             border: none;
-            padding: 10px;
             border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #FF1493;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close-modal:hover {
+            color: #FF69B4;
+        }
+
+        /* Hamburger Icon */
+        .hamburger {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode {
+            background: linear-gradient(135deg, #2C3E50, #34495E);
+            color: #ECF0F1;
+        }
+
+        /* Dark Mode Sidebar */
+        .dark-mode .sidebar {
+            background-color: #1A252F;
+        }
+
+        .dark-mode .movie-list li {
+            background-color: #1A252F;
+        }
+
+        /* Dark Mode Buttons */
+        .dark-mode .modal-content {
+            background-color: #2C3E50;
+            color: #ECF0F1;
+        }
+
+        .dark-mode .modal-content button {
+            background-color: #34495E;
+        }
+
+        .dark-mode .modal-content button:hover {
+            background-color: #2C3E50;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Movie Search</h1>
-    <input type="text" id="search-bar" placeholder="Search for a movie..." onkeyup="searchMovies()">
-    <select id="genre-filter" onchange="filterByGenre()">
-        <option value="all">All Genres</option>
-        <option value="action">Action</option>
-        <option value="comedy">Comedy</option>
-        <option value="horror">Horror</option>
-    </select>
-    <button class="toggle-dark-mode" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-</header>
+<!-- Hamburger Icon -->
+<div class="hamburger" onclick="toggleSidebar()">&#9776;</div>
 
-<div class="container">
-    <ul class="movie-list" id="movie-list"></ul>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <a href="javascript:void(0)" onclick="showMovies()">Movies</a>
+    <a href="javascript:void(0)" onclick="showWebseries()">Webseries</a>
 </div>
 
-<!-- Dynamic Movie Loading -->
+<!-- Main Content -->
+<div class="content" id="content">
+    <!-- Default Movie Page -->
+    <div id="movies-page">
+        <h1>Movies</h1>
+        <ul class="movie-list" id="movie-list"></ul>
+    </div>
+
+    <!-- Webseries Page -->
+    <div id="webseries-page" style="display: none;">
+        <h1>Webseries</h1>
+        <ul class="movie-list" id="webseries-list">
+            <li>Webseries 1</li>
+            <li>Webseries 2</li>
+            <li>Webseries 3</li>
+            <li>Webseries 4</li>
+            <li>Webseries 5</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="movie-modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()">X</button>
+        <h2 id="modal-title">Movie Title</h2>
+        <p id="modal-details">Genre: Action</p>
+        <p id="modal-size">File Size: 700MB</p>
+        <p id="modal-quality">Quality: Full HD</p>
+        <button id="download-button" onclick="downloadMovie()">Download</button>
+    </div>
+</div>
+
 <script>
-    fetch('movies.json') // Fetch movie data from JSON file in the same directory
+    let allMovies = [];
+    const defaultMovieCount = 5;
+
+    fetch('movies.json')
         .then(response => response.json())
         .then(data => {
-            const movieList = document.getElementById('movie-list');
-            movieList.innerHTML = data.map(movie => `
-                <li data-genre="${movie.genre}">
-                    <img src="${movie.image || 'https://via.placeholder.com/50x75'}" alt="${movie.title}">
-                    <a href="${movie.link}" target="_blank">${movie.title}</a>
-                </li>
-            `).join('');
+            allMovies = data;
+            renderMovies(allMovies.slice(0, defaultMovieCount));
         })
         .catch(err => console.error("Error loading movie data:", err));
 
-    function searchMovies() {
-        const query = document.getElementById("search-bar").value.toLowerCase();
-        const movies = document.querySelectorAll(".movie-list li");
-        movies.forEach(movie => {
-            const movieName = movie.querySelector("a").textContent.toLowerCase();
-            movie.style.display = movieName.includes(query) ? "flex" : "none";
-        });
+    function renderMovies(movies) {
+        const movieList = document.getElementById('movie-list');
+        if (movies.length === 0) {
+            movieList.innerHTML = "<p>No movies found.</p>";
+        } else {
+            movieList.innerHTML = movies.map((movie, index) => `
+                <li onclick="showMovieDetails(${index})">
+                    <img src="${movie.image || 'https://via.placeholder.com/50x75'}" alt="${movie.title}">
+                    <a href="javascript:void(0)">${movie.title}</a>
+                </li>
+            `).join('');
+        }
     }
 
-    function filterByGenre() {
-        const genre = document.getElementById("genre-filter").value;
-        const movies = document.querySelectorAll(".movie-list li");
-        movies.forEach(movie => {
-            movie.style.display = (genre === "all" || movie.dataset.genre === genre) ? "flex" : "none";
-        });
+    function showMovies() {
+        document.getElementById('movies-page').style.display = "block";
+        document.getElementById('webseries-page').style.display = "none";
     }
 
-    function toggleDarkMode() {
-        document.body.classList.toggle("dark-mode");
+    function showWebseries() {
+        document.getElementById('movies-page').style.display = "none";
+        document.getElementById('webseries-page').style.display = "block";
+    }
+
+    function showMovieDetails(index) {
+        const movie = allMovies[index];
+        document.getElementById('modal-title').textContent = movie.title;
+        document.getElementById('modal-details').textContent = `Genre: ${movie.genre}`;
+        document.getElementById('modal-size').textContent = `File Size: ${movie.size || 'Unknown'}`;
+        document.getElementById('modal-quality').textContent = `Quality: ${movie.quality || 'Not Available'}`;
+        document.getElementById('download-button').setAttribute('data-link', movie.link);
+        document.getElementById('movie-modal').style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById('movie-modal').style.display = "none";
+    }
+
+    function downloadMovie() {
+        const link = document.getElementById('download-button').getAttribute('data-link');
+        window.open(link, "_blank");
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        const isOpen = sidebar.style.left === '0px';
+
+        if (isOpen) {
+            sidebar.style.left = '-250px';  // Hide the sidebar
+            content.style.marginLeft = '0';  // Restore the content width
+        } else {
+            sidebar.style.left = '0';  // Show the sidebar
+            content.style.marginLeft = '250px';  // Shift content to the right
+        }
     }
 </script>
 
